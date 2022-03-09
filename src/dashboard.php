@@ -1,3 +1,11 @@
+<?php
+session_start();
+// include('login.php');
+include_once('classes/DB.php');
+include_once('classes/User.php');
+include('config.php')
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -45,6 +53,9 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+  <!-- <div class="nav-item text-nowrap text-danger"> -->
+    <?php echo $_SESSION['username']; ?>
+  <!-- </div> -->
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
       <a class="nav-link px-3" href="loginF.php">Sign out</a>
@@ -117,14 +128,15 @@
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
+              <th scope="col">Password</th>
+              <th scope="col">Role</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
             </tr>
           </thead>
-          <tbody>
+          <!-- <tbody>
             <tr>
               <td>1,001</td>
               <td>random</td>
@@ -139,7 +151,30 @@
               <td>visual</td>
               <td>layout</td>
             </tr>
-          </tbody>
+          </tbody> -->
+            <?php
+            $servername = "mysql-server";
+            $username = "root";
+            $password = "secret";
+            $dbname = "store";
+            $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt = $conn->prepare("SELECT * FROM users");
+            $stmt->execute();
+        
+            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $html ="";
+            foreach ($stmt->fetchAll() as $k => $v) {
+                $html.=  "<form action='access.php' method='POST'><tr><td>".$v['username']."</td>
+              <td>".$v['email']."</td>
+              <td>".$v['password']."</td>
+              <td>".$v['role']."</td>
+              <td>".$v['status']."</td>
+              <td><input type='hidden' name='status' value=".$v['status']."><input type='hidden' name='email' value=".$v['email']."><button type='submit' name='change'>Change</button></td>      
+              </tr></form>";
+            }
+            echo $html;
+            ?>
         </table>
       </div>
     </main>

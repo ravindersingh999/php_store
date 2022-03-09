@@ -52,7 +52,7 @@ class User extends DB
         
         foreach ($result as $key => $value) {
             if ($value['email'] == $this->email && $value['password'] == $this->password && $value['role'] == 'admin' && $value['status'] == 'approved') {
-                header('location:dashboard.html');
+                header('location:dashboard.php');
                 exit(0);
             } elseif ($value['email'] == $this->email && $value['password'] == $this->password && $value['role'] == 'user' && $value['status'] == 'restricted') {
                 $_SESSION['login_msg'] = "Permission pending";
@@ -60,6 +60,7 @@ class User extends DB
                 exit(0);
             } elseif ($value['email'] == $this->email && $value['password'] == $this->password && $value['role'] == 'user' && $value['status'] == 'approved') {
                 header('location:profile.php');
+                exit(0);
             }
         }
         header('location:loginF.php');
