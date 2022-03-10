@@ -15,5 +15,11 @@ if (isset($_POST['change'])) {
         $sql->execute();
         $result = $sql->setFetchMode(PDO::FETCH_ASSOC);
     }
-    header('location:dashboard.php');
+    
+} elseif (isset($_POST['delete'])) {
+    $email = $_POST['email'];
+    $sql = DB::getInstance()->prepare("DELETE FROM users where email = '$email'");
+    $sql->execute();
+    $result = $sql->setFetchMode(PDO::FETCH_ASSOC);
 }
+header('location:dashboard.php');
