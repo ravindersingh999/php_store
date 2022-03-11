@@ -59,7 +59,7 @@ class User extends DB
                 header('location:loginF.php');
                 exit(0);
             } elseif ($value['email'] == $this->email && $value['password'] == $this->password && $value['role'] == 'user' && $value['status'] == 'approved') {
-                header('location:profile.php');
+                header('location:shop.php');
                 exit(0);
             }
         }

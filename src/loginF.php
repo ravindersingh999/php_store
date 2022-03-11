@@ -65,8 +65,5 @@ session_start();
     <p class="mt-5 mb-3 text-muted">&copy; CEDCOSS Technologies</p>
   </form>
 </main>
-
-
-    
-  </body>
+</body>
 </html>

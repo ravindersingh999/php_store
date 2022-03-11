@@ -137,7 +137,7 @@ session_start();
           <input type="text" class="form-control" id="p_des" name="p_des">
         </div>
         <div class="text-danger">
-            <?php echo $_SESSION['add_msg']?$_SESSION['add_msg']:""; ?>
+            <?php echo isset($_SESSION['add_msg'])?$_SESSION['add_msg']:""; ?>
         </div>
         <div class="col-12">
           <button type="submit" class="btn btn-primary" name="add">Add Product</button>
