@@ -2,12 +2,15 @@
 session_start();
 include("classes/DB.php");
 include("classes/cart.php");
-$id = $_GET['id'];
-// echo '<pre>';
-// print_r($_SESSION['cart']);
-// echo '</pre>';
-foreach($_SESSION['cart'] as $k=>$v) {
-    $product = json_decode($v);
-    $name = $v["product_name"];
-    echo $name;
+$id = $_POST['proId'];
+
+if (isset($_POST['delete'])) {
+    foreach ($_SESSION['cart'] as $k => $v) {
+        $product = json_decode($v);
+        // echo $product->id;
+        if ($id == $product->id) {
+            unset($_SESSION['cart'][$k]);
+        }
+    }
+    header("location:cart.php");
 }

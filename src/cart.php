@@ -2,6 +2,7 @@
 session_start();
 include('classes/DB.php');
 include("classes/cart.php");
+$total = 0;
 // $id = $_GET['id'];
 // $sql = DB::getInstance()->prepare("SELECT * FROM products where product_id = '$id'");
 // $sql->execute();
@@ -102,7 +103,7 @@ include("classes/cart.php");
 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="cart.html">Cart - <span class="cart-amunt">$800</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                        <a href="cart.html">Cart - <span class="cart-amunt"><?php echo $_SESSION['total']; ?></span> <i class="fa fa-shopping-cart"></i> <span class="product-count"><?php echo count($_SESSION['cart']); ?></span></a>
                     </div>
                 </div>
             </div>
@@ -123,10 +124,10 @@ include("classes/cart.php");
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Shop page</a></li>
+                        <li><a href="shop.php">Shop page</a></li>
                         <li><a href="single-product.html">Single product</a></li>
                         <li class="active"><a href="cart.html">Cart</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
+                        <li><a href="checkout.php">Checkout</a></li>
                         <li><a href="#">Category</a></li>
                         <li><a href="#">Others</a></li>
                         <li><a href="#">Contact</a></li>
@@ -209,7 +210,7 @@ include("classes/cart.php");
                 <div class="col-md-8">
                     <div class="product-content-right">
                         <div class="woocommerce">
-                            <form method="post" action="#">
+                            <!-- <form method="post" action="#"> -->
                                 <table cellspacing="0" class="shop_table cart">
                                     <thead>
                                         <tr>
@@ -227,13 +228,16 @@ include("classes/cart.php");
                                         // print_r($_SESSION);
                                         // echo "</pre>"
 
-                                        foreach($_SESSION['cart'] as $k => $v) {
+                                        foreach ($_SESSION['cart'] as $k => $v) {
                                             $product = json_decode($v);
-                                            $total += $product->price;
+                                            $_SESSION['total'] = $total += $product->price;
                                             // echo $product->name;
                                             echo '<tr class="cart_item">
                                             <td class="product-remove">
-                                                <a title="Remove this item" class="remove" href="#">×</a>
+                                            <form method="POST" action="cartDelete.php">
+                                                <input type="hidden" name="proId" value='.$product->id.'>
+                                                <input class="remove" type="submit" name="delete" value="×">
+                                            </form>
                                             </td>
 
                                             <td class="product-thumbnail">
@@ -259,37 +263,10 @@ include("classes/cart.php");
                                             <td class="product-subtotal">
                                                 <span class="amount">$'.$product->price.'</span>
                                             </td>
-                                        </tr>';                                        }
+                                        </tr>';
+                                        }
                                         ?>
-                                        <!-- <tr class="cart_item">
-                                            <td class="product-remove">
-                                                <a title="Remove this item" class="remove" href="#">×</a>
-                                            </td>
-
-                                            <td class="product-thumbnail">
-                                                <a href="single-product.html"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="img/product-thumb-2.jpg"></a>
-                                            </td>
-
-                                            <td class="product-name">
-                                                <a href="single-product.html">Ship Your Idea</a>
-                                            </td>
-
-                                            <td class="product-price">
-                                                <span class="amount">£15.00</span>
-                                            </td>
-
-                                            <td class="product-quantity">
-                                                <div class="quantity buttons_added">
-                                                    <input type="button" class="minus" value="-">
-                                                    <input type="number" size="4" class="input-text qty text" title="Qty" value="1" min="0" step="1">
-                                                    <input type="button" class="plus" value="+">
-                                                </div>
-                                            </td>
-
-                                            <td class="product-subtotal">
-                                                <span class="amount">£15.00</span>
-                                            </td>
-                                        </tr> -->
+                                        
                                         <tr>
                                             <td class="actions" colspan="6">
                                                 <div class="coupon">
@@ -298,12 +275,15 @@ include("classes/cart.php");
                                                     <input type="submit" value="Apply Coupon" name="apply_coupon" class="button">
                                                 </div>
                                                 <input type="submit" value="Update Cart" name="update_cart" class="button">
-                                                <input type="submit" value="Checkout" name="proceed" class="checkout-button button alt wc-forward">
+                                                <form action="checkout.php" method="POST" style="display: inline;">
+                                                    <input type="submit" value="Checkout" name="proceed" class="checkout-button button alt wc-forward">
+                                                </form>
+                                                
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            </form>
+                            <!-- </form> -->
 
                             <div class="cart-collaterals">
 
