@@ -121,7 +121,7 @@ $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                         <li><a href="index.html">Home</a></li>
                         <li class="active"><a href="shop.html">Shop page</a></li>
                         <li><a href="single-product.html">Single product</a></li>
-                        <li><a href="cart.html">Cart</a></li>
+                        <li><a href="cart.php">Cart</a></li>
                         <li><a href="checkout.html">Checkout</a></li>
                         <li><a href="#">Category</a></li>
                         <li><a href="#">Others</a></li>
@@ -178,7 +178,7 @@ $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                                         <ins>$' . $v["product_price"] . '</ins> <del>$999.00</del>
                                     </div>
                                     <div class="product-option-shop">
-                                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="cart.php?id=' . $v["product_id"] . '" name="addCart">Add to cart</a>
+                                        <a class="add_to_cart_button" data-quantity="1" data-product_sku="" data-product_id="70" rel="nofollow" href="addCart.php?id=' . $v["product_id"] . '" name="addCart">Add to cart</a>
                                     </div>                       
                                     </div>
                                 </div>';

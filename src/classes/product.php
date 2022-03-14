@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('classes/DB.php');
+include('classes/DB.php');
 class Product extends DB
 {
     public $id;

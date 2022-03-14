@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("classes/DB.php");
-include("classes/product.php");
+// include("classes/product.php");
 
 if (isset($_POST['update'])) {
     $id = $_POST['p_id'];
